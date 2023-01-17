@@ -4,11 +4,17 @@
 
 #define MaxInputLength 20
 
-void checkContent(char *p){
+char* checkContent(char *p){
     if(*p==' ' || *p==':' || *p=='-'){
         p++;
         checkContent(p);
+        return p;
+    }else{
+        if(*p=='0'){
+            return p++;
+        }
     }
+    return p;
 }
 
 int main() {
@@ -18,7 +24,7 @@ int main() {
     unsigned long ergebnisMinute = 0;
 
     printf("Hello!\n"
-           "If you wish to get the total time you have worked on a certain day you want to start with '>' and then proceed"
+           "If you wish to get the total time you have worked on a certain day you want to start with '>' and then proceed "
            "to enter the time you started working and ended separated with a '-'\n"
            "Alternatively you can also enter '<' and the time of beginning, followed by a '+' and the time you worked for, which will give you the time"
            "at which you ended working.\n"
@@ -34,33 +40,34 @@ int main() {
         unsigned long endMinute;
         switch(eingabe[0]) {
             case '>':
-                checkContent(ptr);
+                ptr = checkContent(ptr);
                 startHour = strtoul(ptr, &ptr, 0);
-                checkContent(ptr);
+                ptr = checkContent(ptr);
                 startMinute = strtoul(ptr, &ptr, 0);
-                printf("%lu\n", startMinute);
-                checkContent(ptr);
+                //printf("%lu\n", startMinute);
+                ptr = checkContent(ptr);
                 endHour = strtoul(ptr, &ptr, 0);
-                printf("%lu", endHour);
-                checkContent(ptr);
+                //printf("%lu", endHour);
+                ptr = checkContent(ptr);
                 endMinute = strtoul(ptr, &ptr, 0);
-                checkContent(ptr);
+                ptr = checkContent(ptr);
                 ergebnisHour = endHour - startHour;
                 ergebnisMinute = endMinute - startMinute;
                 if (ergebnisMinute < 0) {
                     ergebnisMinute = -ergebnisMinute;
+                    ergebnisHour = ergebnisHour - 1;
                 }
                 break;
             case '<':
-                checkContent(ptr);
+                ptr = checkContent(ptr);
                 startHour = strtoul(eingabe, &ptr, 2);
-                checkContent(ptr);
+                ptr = checkContent(ptr);
                 startMinute = strtoul(ptr, &ptr, 2);
-                checkContent(ptr);
+                ptr = checkContent(ptr);
                 endHour = strtoul(ptr, &ptr, 2);
-                checkContent(ptr);
+                ptr = checkContent(ptr);
                 endMinute = strtoul(ptr, &ptr, 2);
-                checkContent(ptr);
+                ptr = checkContent(ptr);
                 ergebnisHour = startHour + endHour;
                 ergebnisMinute = startMinute + endMinute;
                 if (ergebnisMinute >= 60) {
