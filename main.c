@@ -5,20 +5,22 @@
 #define MaxInputLength 20
 
 char* checkContent(char *p){
+    printf("[%c]\n", *p);
     if(*p==' ' || *p==':' || *p=='-'){
         p++;
-        checkContent(p);
+        p = checkContent(p);
         return p;
     }else{
         if(*p=='0'){
-            return p++;
+            p++;
+            return p;
         }
     }
     return p;
 }
 
 int main() {
-    char eingabe[MaxInputLength];
+    char eingabe[MaxInputLength]="";
     char endExpression[] = "exit";
     unsigned long ergebnisHour = 0;
     unsigned long ergebnisMinute = 0;
