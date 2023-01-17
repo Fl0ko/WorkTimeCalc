@@ -5,8 +5,7 @@
 #define MaxInputLength 20
 
 char* checkContent(char *p){
-    printf("[%c]\n", *p);
-    if(*p==' ' || *p==':' || *p=='-'){
+    if(*p==' ' || *p==':' || *p=='-' || *p == 'h'){
         p++;
         p = checkContent(p);
         return p;
@@ -34,7 +33,7 @@ int main() {
            "By typing 'exit' the program will end\n");
 
     do {
-        scanf("%s",eingabe);
+        fgets(eingabe, MaxInputLength, stdin);
         char *ptr = &eingabe[1];
         unsigned long startHour;
         unsigned long startMinute;
@@ -62,23 +61,23 @@ int main() {
                 break;
             case '<':
                 ptr = checkContent(ptr);
-                startHour = strtoul(eingabe, &ptr, 2);
+                startHour = strtoul(ptr, &ptr, 0);
                 ptr = checkContent(ptr);
-                startMinute = strtoul(ptr, &ptr, 2);
+                startMinute = strtoul(ptr, &ptr, 0);
                 ptr = checkContent(ptr);
-                endHour = strtoul(ptr, &ptr, 2);
+                endHour = strtoul(ptr, &ptr, 0);
                 ptr = checkContent(ptr);
-                endMinute = strtoul(ptr, &ptr, 2);
+                endMinute = strtoul(ptr, &ptr, 0);
                 ptr = checkContent(ptr);
                 ergebnisHour = startHour + endHour;
                 ergebnisMinute = startMinute + endMinute;
                 if (ergebnisMinute >= 60) {
-                    ergebnisMinute = 0;
+                    ergebnisMinute = ergebnisMinute - 60;
                     ergebnisHour++;
                 }
                 break;
             case '=':
-                printf("%luh%lu\n", ergebnisHour, ergebnisMinute);
+                printf("%lu:%lu\n", ergebnisHour, ergebnisMinute);
                 break;
         }
     }while(strcmp(eingabe, endExpression) != 0);
