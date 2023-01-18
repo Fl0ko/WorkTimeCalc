@@ -19,17 +19,15 @@ char* checkContent(char *p){
 }
 
 int main() {
-    char eingabe[MaxInputLength]="";
-    char endExpression[] = "exit";
+    char eingabe[MaxInputLength];
+    char endExpression[MaxInputLength] = "exit\n";
     unsigned long ergebnisHour = 0;
     unsigned long ergebnisMinute = 0;
 
     printf("Hello!\n"
-           "If you wish to get the total time you have worked on a certain day you want to start with '>' and then proceed "
-           "to enter the time you started working and ended separated with a '-'\n"
-           "Alternatively you can also enter '<' and the time of beginning, followed by a '+' and the time you worked for, which will give you the time"
-           "at which you ended working.\n"
-           "Entering a '=' will give you the result. The two operations can not be combined.\n"
+           "If you wish to get the total time you have worked on a certain day you want to enter the times like this: >HH:MM-HH:MM\n"
+           "Alternatively you can also enter '<HH:MM+HH:MM', which will give you the time at which you ended working.\n"
+           "Entering a '=' will give you the result. The two operations may not be combined.\n"
            "By typing 'exit' the program will end\n");
 
     do {
