@@ -4,7 +4,7 @@
 
 #define MaxInputLength 20
 
-char *checkContent(const char *p) {
+char *checkContent(char *p) {
     if (*p == ' ' || *p == ':' || *p == '-' || *p == 'h') {
         p++;
         p = checkContent(p);
@@ -28,7 +28,7 @@ int main() {
            "If you wish to get the total time you have worked on a certain day you want to enter the times like this: >HH:MM-HH:MM\n"
            "Alternatively you can also enter '<HH:MM+HH:MM', which will give you the time at which you ended working.\n"
            "To add multiple work hours use '+HH:MM HH:MM', only enter two per line.\n"
-           "Entering a '=' will give you the result. The two operations may not be combined.\n"
+           "Entering a '=' will give you the result. The previous operations may not be combined.\n"
            "By typing 'exit' the program will end\n");
 
     do {
