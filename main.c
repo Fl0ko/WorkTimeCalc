@@ -4,13 +4,13 @@
 
 #define MaxInputLength 20
 
-char* checkContent(char *p){
-    if(*p==' ' || *p==':' || *p=='-' || *p == 'h'){
+char *checkContent(const char *p) {
+    if (*p == ' ' || *p == ':' || *p == '-' || *p == 'h') {
         p++;
         p = checkContent(p);
         return p;
-    }else{
-        if(*p=='0'){
+    } else {
+        if (*p == '0') {
             p++;
             return p;
         }
@@ -27,6 +27,7 @@ int main() {
     printf("Hello!\n"
            "If you wish to get the total time you have worked on a certain day you want to enter the times like this: >HH:MM-HH:MM\n"
            "Alternatively you can also enter '<HH:MM+HH:MM', which will give you the time at which you ended working.\n"
+           "To add multiple work hours use '+HH:MM HH:MM', only enter two per line.\n"
            "Entering a '=' will give you the result. The two operations may not be combined.\n"
            "By typing 'exit' the program will end\n");
 
@@ -37,16 +38,14 @@ int main() {
         unsigned long startMinute;
         unsigned long endHour;
         unsigned long endMinute;
-        switch(eingabe[0]) {
+        switch (eingabe[0]) {
             case '>':
                 ptr = checkContent(ptr);
                 startHour = strtoul(ptr, &ptr, 0);
                 ptr = checkContent(ptr);
                 startMinute = strtoul(ptr, &ptr, 0);
-                //printf("%lu\n", startMinute);
                 ptr = checkContent(ptr);
                 endHour = strtoul(ptr, &ptr, 0);
-                //printf("%lu", endHour);
                 ptr = checkContent(ptr);
                 endMinute = strtoul(ptr, &ptr, 0);
                 ptr = checkContent(ptr);
@@ -74,11 +73,31 @@ int main() {
                     ergebnisHour++;
                 }
                 break;
+            case '+':
+                ptr = checkContent(ptr);
+                startHour = strtoul(ptr, &ptr, 0);
+                ptr = checkContent(ptr);
+                startMinute = strtoul(ptr, &ptr, 0);
+                ptr = checkContent(ptr);
+                endHour = strtoul(ptr, &ptr, 0);
+                ptr = checkContent(ptr);
+                endMinute = strtoul(ptr, &ptr, 0);
+                ptr = checkContent(ptr);
+                ergebnisHour = ergebnisHour + startHour + endHour;
+                ergebnisMinute = ergebnisMinute + startMinute + endMinute;
+                if (ergebnisMinute >= 60) {
+                    int i = ergebnisMinute / 60;
+                    ergebnisHour += i;
+                    ergebnisMinute = ergebnisMinute % 60;
+                }
+                break;
             case '=':
+                ergebnisMinute = 0;
+                ergebnisHour = 0;
                 printf("%lu:%lu\n", ergebnisHour, ergebnisMinute);
                 break;
         }
-    }while(strcmp(eingabe, endExpression) != 0);
+    } while (strcmp(eingabe, endExpression) != 0);
 
     return 0;
 }
