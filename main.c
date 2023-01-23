@@ -92,9 +92,9 @@ int main() {
                 }
                 break;
             case '=':
+                printf("%lu:%lu\n", ergebnisHour, ergebnisMinute);
                 ergebnisMinute = 0;
                 ergebnisHour = 0;
-                printf("%lu:%lu\n", ergebnisHour, ergebnisMinute);
                 break;
         }
     } while (strcmp(eingabe, endExpression) != 0);
