@@ -19,6 +19,7 @@ char *checkContent(char *p) {
 }
 
 int main() {
+    setbuf(stdout, 0);
     char eingabe[MaxInputLength];
     char endExpression[MaxInputLength] = "exit\n";
     unsigned long ergebnisHour = 0;
